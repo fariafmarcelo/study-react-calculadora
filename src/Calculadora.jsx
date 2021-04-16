@@ -12,7 +12,8 @@ export default class Calculadora extends Component {
             operando1: 1,
             operando2: 1,
             operador: '+',
-            resultado: 1
+            resultado: 1,
+            sexo: 'm'
         }
     }
 
@@ -37,21 +38,29 @@ export default class Calculadora extends Component {
 
     //função que faz a operação
     opera() {
+        var aux = (this.state.sexo === "m") ? aux = "Prezado senhor, o resultado é: " : "Prezada senhora, o resultado é: "
         switch(this.state.operador){
-            case '+' : this.setState({ resultado: this.state.operando1 + this.state.operando2 })
+            case '+' : this.setState({ resultado: `${aux} ${this.state.operando1 + this.state.operando2}` })
                 break
-            case '-' : this.setState({ resultado: this.state.operando1 - this.state.operando2 })
+            case '-' : this.setState({ resultado: `${aux} ${this.state.operando1 - this.state.operando2}` })
                 break
-            case '*' : this.setState({ resultado: this.state.operando1 * this.state.operando2 })
+            case '*' : this.setState({ resultado: `${aux} ${this.state.operando1 * this.state.operando2}` })
                 break
             case '/' : if (this.state.operando2 !== 0) {
-                            this.setState({ resultado: this.state.operando1 / this.state.operando2 })
+                            this.setState({ resultado: `${aux} ${this.state.operando1 / this.state.operando2}` })
                         } else {
                             this.setState({ resultado: "Impossível realizar a divisão" })
                         }
                         break
             default: break // caso contrário
         }
+    }
+
+    // função que altera o valor do sexo
+    setSexo(valor) {
+        this.setState({
+            sexo: valor
+        })
     }
 
     // função que mostra ao usuário - render
@@ -61,14 +70,18 @@ export default class Calculadora extends Component {
                 <h1> Projeto de Calculadora </h1>
                 <h2> Operando 1: <input type="number" value={this.state.operando1} onChange={e => this.setOperando1(e)}/> </h2>
                 <h2> Operando 2: <input type="number" value={this.state.operando2} onChange={e => this.setOperando2(e)}/> </h2>
-                <h2> 
-                    Operandor: 
-                    <select value={this.state.operandor} onChange={e => this.setOperador(e)}> 
+                <h2>
+                    Operandor:
+                    <select value={this.state.operandor} onChange={e => this.setOperador(e)}>
                         <option value="+"> + </option>
                         <option value="-"> - </option>
                         <option value="*"> * </option>
                         <option value="/"> / </option>
                     </select>
+                </h2>
+                <h2>
+                    Masculino<input type="radio" name="sexo" onClick={e => this.setSexo("m")}/>
+                    Feminino<input type="radio" name="sexo" onClick={e => this.setSexo("f")}/>
                 </h2>
                 <h2> <button type="button" onClick={ e => this.opera() }>Calcular</button> </h2>
                 <h2> Resultado: {this.state.resultado} </h2>
