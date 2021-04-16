@@ -61,7 +61,15 @@ export default class Calculadora extends Component {
                 <h1> Projeto de Calculadora </h1>
                 <h2> Operando 1: <input type="number" value={this.state.operando1} onChange={e => this.setOperando1(e)}/> </h2>
                 <h2> Operando 2: <input type="number" value={this.state.operando2} onChange={e => this.setOperando2(e)}/> </h2>
-                <h2> Operandor: <input type="string" value={this.state.operandor} onChange={e => this.setOperador(e)}/> </h2>
+                <h2> 
+                    Operandor: 
+                    <select value={this.state.operandor} onChange={e => this.setOperador(e)}> 
+                        <option value="+"> + </option>
+                        <option value="-"> - </option>
+                        <option value="*"> * </option>
+                        <option value="/"> / </option>
+                    </select>
+                </h2>
                 <h2> <button type="button" onClick={ e => this.opera() }>Calcular</button> </h2>
                 <h2> Resultado: {this.state.resultado} </h2>
             </div>
